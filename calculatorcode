@@ -1,0 +1,57 @@
+import tkinter as tk
+from tkinter import ttk
+
+
+def calculate(*args):
+    try:
+        num1 = float(entry1.get())
+        num2 = float(entry2.get())
+        operation = operation_var.get()
+
+        if operation == "Add":
+            result = num1 + num2
+        elif operation == "Subtract":
+            result = num1 - num2
+        elif operation == "Multiply":
+            result = num1 * num2
+        elif operation == "Divide":
+            result = num1 / num2 if num2 != 0 else "Error (divide by zero)"
+        else:
+            result = "Invalid operation"
+
+        result_label.config(text=f"Result: {result}")
+    except ValueError:
+        result_label.config(text="Error: Invalid input")
+
+root = tk.Tk()
+root.title("Simple Calculator")
+
+
+entry1 = ttk.Entry(root, width=15)
+entry1.grid(row=0, column=1, padx=10, pady=5)
+
+
+entry2 = ttk.Entry(root, width=15)
+entry2.grid(row=1, column=1, padx=10, pady=5)
+
+
+ttk.Label(root, text="First Number:").grid(row=0, column=0, padx=10, pady=5)
+ttk.Label(root, text="Second Number:").grid(row=1, column=0, padx=10, pady=5)
+
+
+operation_var = tk.StringVar()
+operation_var.set("Add")
+operations_menu = ttk.OptionMenu(root, operation_var, "Add", "Add", "Subtract", "Multiply", "Divide", command=calculate)
+operations_menu.grid(row=2, column=1, padx=10, pady=5)
+
+ttk.Label(root, text="Operation:").grid(row=2, column=0, padx=10, pady=5)
+
+
+result_label = ttk.Label(root, text="Result: ")
+result_label.grid(row=3, column=0, columnspan=2, pady=10)
+
+calculate_button = ttk.Button(root, text="Calculate", command=calculate)
+calculate_button.grid(row=4, column=0, columnspan=2, pady=5)
+
+
+root.mainloop()
